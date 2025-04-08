@@ -51,7 +51,7 @@ class Test2ApplicationTests {
     void testJpa2() {
 //        JPA : findAll = SQL : SELECT *
         List<Question> all = this.questionRepository.findAll();
-        assertEquals(4, all.size());
+        assertEquals(2, all.size());
 
         Question q = all.get(0);
         assertEquals("sbb가 무엇인가요?", q.getSubject());
@@ -111,12 +111,12 @@ class Test2ApplicationTests {
 
     @Test
     void testJpa8() {
-        assertEquals(3, this.questionRepository.count());
-        Optional<Question> oq = this.questionRepository.findById(4);
+        assertEquals(2, this.questionRepository.count());
+        Optional<Question> oq = this.questionRepository.findById(1);
         assertTrue(oq.isPresent());
         Question q = oq.get();
         this.questionRepository.delete(q);
-        assertEquals(2, this.questionRepository.count());
+        assertEquals(1, this.questionRepository.count());
     }
 
 //    5. Save Answer Data
@@ -147,7 +147,16 @@ class Test2ApplicationTests {
 //    7. Finding Question Data Through Answer Data vs. Finding Answer Data Through Question Data
 
     @Test
-    void testJpa11() {
+    void testJpa11(){
+        Optional<Answer> op = this.answerRepository.findById(1);
+        assertTrue(op.isPresent());
+        Answer a = op.get();
+        Question q = a.getQuestion();
+        assertEquals("id는 자동으로 생성되나요?",q.getContent());
+    }
+
+    @Test
+    void testJpa12() {
         Optional<Question> oq = this.questionRepository.findById(2);
         assertTrue(oq.isPresent());
         Question q = oq.get();
