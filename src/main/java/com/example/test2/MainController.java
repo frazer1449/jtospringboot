@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class HelloController {
+public class MainController {
 //    명령어 가져오기
     @GetMapping("/hello")
     @ResponseBody
@@ -21,5 +21,10 @@ public class HelloController {
         }
         String s = "" + sum;
         return s;
+    }
+
+    @GetMapping("/*")
+    public String root() {
+        return "redirect:/question/list";
     }
 }

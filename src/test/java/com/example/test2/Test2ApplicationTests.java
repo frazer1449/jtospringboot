@@ -4,6 +4,7 @@ import com.example.test2.answer.Answer;
 import com.example.test2.answer.AnswerRepository;
 import com.example.test2.question.Question;
 import com.example.test2.question.QuestionRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -155,12 +156,22 @@ class Test2ApplicationTests {
         assertEquals("id는 자동으로 생성되나요?",q.getContent());
     }
 
+
+//    Transactional keeps the DB session alive until the method ends.
+    @Transactional
     @Test
     void testJpa12() {
         Optional<Question> oq = this.questionRepository.findById(2);
         assertTrue(oq.isPresent());
         Question q = oq.get();
 
+//        Without @Transactional, this doesn't work.
+//        After the QuestionRepository retrieves a Question object using the
+//        findById method, the database session is closed.
+
+//        Question, Answer class에서 @OneToMany, @ManyToOne annotation 할때
+//        (fetch=FetchType.LAZY (기본값), fetch=FetchType.EAGER) 옵션
+//        (retrieving the entire list q in advance when searching for an object is called the Eager method)
         List<Answer> answerList = q.getAnswerList();
 
         assertEquals(1, answerList.size());

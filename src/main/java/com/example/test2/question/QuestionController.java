@@ -32,9 +32,4 @@ public class QuestionController {
 //      display만 아니라 데이터 전송
     }
 
-    @GetMapping("/*")
-    public String root() {
-        return "redirect:/question/list";
-    }
-
 }
