@@ -15,6 +15,7 @@ public class MainController {
     @GetMapping("/sum")
     @ResponseBody
     public String sum(){
+
         int sum = 0;
         for (int i = 1; i <= 20; i++){
             sum += i;
