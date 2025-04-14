@@ -23,9 +23,9 @@ public class MainController {
         String s = "" + sum;
         return s;
     }
-
-    @GetMapping("/*")
-    public String root() {
-        return "redirect:/question/list";
-    }
+//
+//    @GetMapping("/*")
+//    public String root() {
+//        return "redirect:/question/list";
+//    }
 }

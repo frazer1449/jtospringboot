@@ -32,6 +32,8 @@ dependencies {
 //    annotationProcessor is needed for Getter & Processor
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+//    to validate user inputF
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 

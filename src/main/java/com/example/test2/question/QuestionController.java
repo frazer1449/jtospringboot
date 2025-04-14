@@ -5,9 +5,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.test2.answer.AnswerForm;
+
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
@@ -38,10 +41,30 @@ public class QuestionController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id) {
+    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
         return "question_detail";
     }
 
+    @GetMapping("/create")
+    public String questionCreate(Model model, QuestionForm questionForm){
+//        model.addAttribute("questionForm", new QuestionForm());
+        return "question_form";
+    }
+
+//    @PostMapping("/create")
+//    public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content){
+//        this.questionService.create(subject, content);
+//        return "redirect:/question/list";
+//    }
+
+    @PostMapping("/create")
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "question_form";
+        }
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent());
+        return "redirect:/question/list";
+    }
 }

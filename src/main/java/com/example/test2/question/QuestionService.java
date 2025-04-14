@@ -1,5 +1,6 @@
 package com.example.test2.question;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import com.mysite.test2.DataNotFoundException;
@@ -26,4 +27,12 @@ public class QuestionService {
             throw new DataNotFoundException("question not found");
         }
     }
+    public void create(String subject, String content){
+        Question q = new Question();
+        q.setSubject(subject);
+        q.setContent(content);
+        q.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(q);
+    }
+
 }
