@@ -4,6 +4,7 @@ import com.example.test2.answer.Answer;
 import com.example.test2.answer.AnswerRepository;
 import com.example.test2.question.Question;
 import com.example.test2.question.QuestionRepository;
+import com.example.test2.question.QuestionService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ class Test2ApplicationTests {
 
     @Autowired
     private AnswerRepository answerRepository;
+
+    @Autowired
+    private QuestionService questionService;
 
 //  1. Save Question Data
     @Test
@@ -176,5 +180,15 @@ class Test2ApplicationTests {
 
         assertEquals(1, answerList.size());
         assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+    }
+
+    // Create Test Data (for Paging)
+    @Test
+    void testJpa13() {
+        for (int i = 1; i <= 300; i++) {
+            String subject = String.format("테스트 데이터입니다:[%03d]", i);
+            String content = "내용무";
+            this.questionService.create(subject, content);
+        }
     }
 }

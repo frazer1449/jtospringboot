@@ -12,6 +12,9 @@ import com.example.test2.answer.AnswerForm;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
+
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
@@ -30,14 +33,10 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Question> questionList = this.questionService.getList();
-        model.addAttribute("questionList", questionList);
-//        model: HTML파일에서 question들을 가져다 쓰는데 도와주는애
-//        템플릿에서 question들을 가져다쓰게 연결
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+        Page<Question> paging = this.questionService.getList(page);
+        model.addAttribute("paging", paging);
         return "question_list";
-//      HTML 파일을 리턴할수있고 데이터만 전송도 가능...
-//      display만 아니라 데이터 전송
     }
 
     @GetMapping("/detail/{id}")
