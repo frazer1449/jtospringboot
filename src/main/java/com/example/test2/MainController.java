@@ -24,8 +24,9 @@ public class MainController {
         return s;
     }
 //
-//    @GetMapping("/*")
-//    public String root() {
-//        return "redirect:/question/list";
-//    }
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/question/list";
+    }
+
 }

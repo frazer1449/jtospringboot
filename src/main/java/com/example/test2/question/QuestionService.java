@@ -3,8 +3,9 @@ package com.example.test2.question;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import com.mysite.test2.DataNotFoundException;
+import com.example.test2.DataNotFoundException;
 
+import com.example.test2.user.SiteUser;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -35,11 +36,12 @@ public class QuestionService {
             throw new DataNotFoundException("question not found");
         }
     }
-    public void create(String subject, String content){
+    public void create(String subject, String content, SiteUser user){
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
+        q.setAuthor(user);
         this.questionRepository.save(q);
     }
 

@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.example.test2.user.SiteUser;
+
 @Getter
 @Setter
 @Entity
@@ -34,4 +36,7 @@ public class Question {
 //    (?) => ON DELETE SET NULL
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
 }

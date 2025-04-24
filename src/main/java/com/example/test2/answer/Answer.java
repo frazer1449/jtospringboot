@@ -4,6 +4,7 @@ package com.example.test2.answer;
 import java.time.LocalDateTime;
 
 import com.example.test2.question.Question;
+import com.example.test2.user.SiteUser;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,4 +31,8 @@ public class Answer {
     private Question question;
 //    Question: entity; 관계 정의
 //    ManyToOne (answer : question = many : one)
+
+    @ManyToOne
+    private SiteUser author;
+
 }
