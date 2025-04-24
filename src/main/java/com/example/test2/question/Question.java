@@ -2,6 +2,7 @@ package com.example.test2.question;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import com.example.test2.answer.Answer;
 import jakarta.persistence.*;
@@ -29,6 +30,8 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime modifyDate;
+
 //    mapped by what? question에 여러개의 answer. question 지워지면 어떻게 처리?
 //    question을 지우면 연결된 answer들 없어짐
 //    possible to set question as null in Answer entity (basically not corresponding to a question)
@@ -39,4 +42,7 @@ public class Question {
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter;
 }

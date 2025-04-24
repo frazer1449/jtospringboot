@@ -2,15 +2,11 @@ package com.example.test2.answer;
 // answer의 package가 subpackage로 바뀜.
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.example.test2.question.Question;
 import com.example.test2.user.SiteUser;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +23,8 @@ public class Answer {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime modifyDate;
+
     @ManyToOne
     private Question question;
 //    Question: entity; 관계 정의
@@ -34,5 +32,8 @@ public class Answer {
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter;
 
 }
